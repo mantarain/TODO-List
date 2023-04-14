@@ -29,7 +29,24 @@ while True:
             case "clear":
                 os.system("clear")
             case "exit":
+
+                content = ["Main:\n", MainL, "\n", "Archive:\n", Archive, "\n"]
+                sting = ""
+
+                for cont in content:
+                    if isinstance(cont, TODO):
+                        string = str(cont.tasks)
+                        sting += string
+                    else:
+                        sting += cont
+
+                with open("TodoSave.txt", "w") as file:
+                    file.write(sting)
+                    file.close()
+                
                 exit()
+
+
             case "help":
                 print(help())
             case "archive":
@@ -38,6 +55,45 @@ while True:
             case "todo":
                 for string in MainL.__repr__():
                     print(string)
+            
+            case "open":
+                os.system("clear")
+                path = input("Input name/path of file\n:")
+                section = None
+                main = {}
+                arch = {}
+
+                try:
+                    with open(path, "r") as file:
+                        fileStrs = file.read()
+                        fileStrs = fileStrs.split("\n")
+                        for string in fileStrs:
+
+                            # Check for Main TODO list
+                            if string == "Main:":
+                                section = "Main"
+                                continue
+                            elif section == "Main":
+                                main = eval(string)
+                                section = None
+                                continue
+                            
+                            # Check for Archived Tasks
+                            if string == "Archive:":
+                                section = "Archive"
+                                continue
+                            elif section == "Archive":
+                                arch = eval(string)
+                                section = None
+                        
+                        MainL.tasks = main
+                        Archive.tasks = arch
+
+                        print("downloaded tasks succefully!")
+                
+                except FileNotFoundError:
+                    print(f"'{path}' was not found")
+
             
             # List commands
 
@@ -59,6 +115,7 @@ while True:
 
                 MainL.removeTask(name)
             
+            # archives an item from MainL class into Archive dict
             case "done item":
                 os.system("clear")
                 name = input("Input name of task\n: ")

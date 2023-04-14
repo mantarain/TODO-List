@@ -7,6 +7,7 @@ def help():
         exit            - closes current session.
         archive         - shows the archive list
         todo            - shows the current todo list
+        open            - opens todo save file to continue a session
 
         new item                            - creates a new task with name and details inpu.
         remove item                         - removes item with the given name.
