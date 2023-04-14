@@ -11,20 +11,24 @@ class TODO:
         self.tasks[item.name] = item.details
         print(f"{self.message} '{item.name}'")
     
-    def removeTask(self, taskName):
+    def removeTask(self, taskName, ifprint):
         "Removes an item from class dict"
-        if self.tasks[taskName]:
-            del self.tasks[taskName]
-            print(f"Removed '{taskName}'")
-        else:
-            return f"'{taskName}' is not a task"
+        try:
+            if self.tasks[taskName]:
+                del self.tasks[taskName]
+                print(f"Removed '{taskName}'")
+        except KeyError:
+            if ifprint:
+                print(f"'{taskName}' is not a task")
     
     def getTask(self, taskName):
         "Gets an item from class dict"
-        if self.tasks[taskName]:
-            return taskName, self.tasks[taskName]
-        else:
-            return f"'{taskName}' is not a task"
+        try:
+            if self.tasks[taskName]:
+                return taskName, self.tasks[taskName]
+        except KeyError:
+            print(f"'{taskName}' is not a task")
+            return None
     
     def __repr__(self):
         strList = []

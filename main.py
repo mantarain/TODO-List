@@ -113,7 +113,7 @@ while True:
                 os.system("clear")
                 name = input("Input name of task\n: ")
 
-                MainL.removeTask(name)
+                MainL.removeTask(name, True)
             
             # archives an item from MainL class into Archive dict
             case "done item":
@@ -121,7 +121,10 @@ while True:
                 name = input("Input name of task\n: ")
 
                 task = MainL.getTask(name)
-                MainL.removeTask(name)
+                MainL.removeTask(name, False)
+
+                if task == None:
+                    continue
 
                 Archive.addTask(Item(task[0], task[1]))
             
