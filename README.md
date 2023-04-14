@@ -14,3 +14,6 @@
 - new item        -> creates a new task with name and details input.
 - remove item     -> deletes item with the given name.
 - done item       -> archives item into the archive list (accessed with the "archive" command)
+
+
+#### Any contributions are welcome :)
